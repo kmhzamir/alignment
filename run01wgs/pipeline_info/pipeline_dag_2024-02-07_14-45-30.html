@@ -1,0 +1,421 @@
+<!--
+  ~ Copyright 2013-2023, Seqera Labs
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<html>
+
+    <head>
+        <title>Nextflow Cytoscape.js with Dagre</title>
+
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+
+        <script type="text/javascript">
+        var prot = (("https:" == document.location.protocol) ? "https://" : "http://");
+        document.write(unescape("%3Cscript src='" + prot + "code.jquery.com/jquery-2.0.3.min.js' type='text/javascript' %3E%3C/script%3E"));
+        document.write(unescape("%3Cscript src='" + prot + "cdnjs.cloudflare.com/ajax/libs/cytoscape/2.6.12/cytoscape.min.js' type='text/javascript' %3E%3C/script%3E"));
+        document.write(unescape("%3Cscript src='" + prot + "cdn.rawgit.com/cpettitt/dagre/v0.7.4/dist/dagre.min.js' type='text/javascript' %3E%3C/script%3E"));
+        document.write(unescape("%3Cscript src='" + prot + "cdn.rawgit.com/cytoscape/cytoscape.js-dagre/1.1.2/cytoscape-dagre.js' type='text/javascript' %3E%3C/script%3E"));
+        </script>
+
+        <style>
+            body {
+                font-family: helvetica;
+                font-size: 14px;
+            }
+
+            #cy {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                left: 0;
+                top: 0;
+                z-index: 999;
+            }
+
+            h1 {
+                opacity: 0.5;
+                font-size: 1em;
+            }
+        </style>
+
+        <script>
+            $(function(){
+                var cy = window.cy = cytoscape({
+                    container: document.getElementById('cy'),
+                    boxSelectionEnabled: false,
+                    autounselectify: true,
+
+                    layout: {
+                        name: 'dagre'
+                    },
+
+                    style: cytoscape.stylesheet()
+                        .selector( 'node')
+                            .css({
+                                'width': 10,
+                                'height': 10,
+                                'content': 'data(label)',
+                                'text-valign': 'center',
+                                'text-halign': 'center',
+                                'text-opacity': 0.5,
+                            })
+                        .selector('node.PROCESS')
+                            .css({
+                                'width': 100,
+                                'height': 50,
+                                'text-opacity': 0.9,
+                                'background-color': '#009911'
+                            })
+                        .selector('node.OPERATOR')
+                            .css({
+                                'background-color': '#11479e',
+                                'text-halign': 'right',
+                            })
+                        .selector('node.ORIGIN')
+                            .css({
+                                'background-color': '#999999',
+                                'text-halign': 'right',
+                            })
+                        .selector('node.TERMINATION')
+                            .css({
+                                'background-color': '#999999',
+                                'text-halign': 'right',
+                            })
+                        .selector('edge')
+                            .css({
+                                'content': 'data(label)',
+                                'text-opacity': 0.5,
+                                'width': 4,
+                                'target-arrow-shape': 'triangle',
+                                'line-color': '#9dbaea',
+                                'target-arrow-color': '#9dbaea'
+                            }),
+
+elements: {
+nodes: [
+{ data: { id: 'p0', label: 'Channel.empty'}, classes: 'ORIGIN' },
+{ data: { id: 'p1', label: 'Channel.fromPath'}, classes: 'ORIGIN' },
+{ data: { id: 'p2'}, classes: 'NODE' },
+{ data: { id: 'p3', label: 'channel.fromSamplesheet'}, classes: 'ORIGIN' },
+{ data: { id: 'p4', label: 'tap'}, classes: 'OPERATOR' },
+{ data: { id: 'p5', label: 'map'}, classes: 'OPERATOR' },
+{ data: { id: 'p6', label: 'reduce'}, classes: 'OPERATOR' },
+{ data: { id: 'p7', label: 'combine'}, classes: 'OPERATOR' },
+{ data: { id: 'p8', label: 'map'}, classes: 'OPERATOR' },
+{ data: { id: 'p9', label: 'tap'}, classes: 'OPERATOR' },
+{ data: { id: 'p10', label: 'map'}, classes: 'OPERATOR' },
+{ data: { id: 'p11', label: 'reduce'}, classes: 'OPERATOR' },
+{ data: { id: 'p12', label: 'combine'}, classes: 'OPERATOR' },
+{ data: { id: 'p13', label: 'map'}, classes: 'OPERATOR' },
+{ data: { id: 'p14', label: 'map'}, classes: 'OPERATOR' },
+{ data: { id: 'p15', label: 'toList'}, classes: 'OPERATOR' },
+{ data: { id: 'p16', label: 'map'}, classes: 'OPERATOR' },
+{ data: { id: 'p17'}, classes: 'NODE' },
+{ data: { id: 'p18', label: 'toList'}, classes: 'OPERATOR' },
+{ data: { id: 'p19', label: 'map'}, classes: 'OPERATOR' },
+{ data: { id: 'p20'}, classes: 'NODE' },
+{ data: { id: 'p21', label: 'Channel.fromPath'}, classes: 'ORIGIN' },
+{ data: { id: 'p22', label: 'map'}, classes: 'OPERATOR' },
+{ data: { id: 'p23', label: 'collect'}, classes: 'OPERATOR' },
+{ data: { id: 'p24', label: 'Channel.fromPath'}, classes: 'ORIGIN' },
+{ data: { id: 'p25', label: 'map'}, classes: 'OPERATOR' },
+{ data: { id: 'p26', label: 'collect'}, classes: 'OPERATOR' },
+{ data: { id: 'p27', label: 'Channel.empty'}, classes: 'ORIGIN' },
+{ data: { id: 'p28', label: 'Channel.empty'}, classes: 'ORIGIN' },
+{ data: { id: 'p29'}, classes: 'NODE' },
+{ data: { id: 'p30', label: 'Channel.empty'}, classes: 'ORIGIN' },
+{ data: { id: 'p31'}, classes: 'NODE' },
+{ data: { id: 'p32', label: 'Channel.empty'}, classes: 'ORIGIN' },
+{ data: { id: 'p33'}, classes: 'NODE' },
+{ data: { id: 'p34', label: 'Channel.empty'}, classes: 'ORIGIN' },
+{ data: { id: 'p35'}, classes: 'NODE' },
+{ data: { id: 'p36', label: 'NFCORE_RAREDISEASE:RAREDISEASE:PREPARE_REFERENCES:BWA_INDEX_GENOME'}, classes: 'PROCESS' },
+{ data: { id: 'p37', label: 'NFCORE_RAREDISEASE:RAREDISEASE:PREPARE_REFERENCES:BWAMEM2_INDEX_GENOME'}, classes: 'PROCESS' },
+{ data: { id: 'p38', label: 'NFCORE_RAREDISEASE:RAREDISEASE:PREPARE_REFERENCES:SENTIEON_BWAINDEX_GENOME'}, classes: 'PROCESS' },
+{ data: { id: 'p39'}, classes: 'ORIGIN' },
+{ data: { id: 'p40', label: 'NFCORE_RAREDISEASE:RAREDISEASE:PREPARE_REFERENCES:SAMTOOLS_FAIDX_GENOME'}, classes: 'PROCESS' },
+{ data: { id: 'p41'}, classes: 'NODE' },
+{ data: { id: 'p42'}, classes: 'NODE' },
+{ data: { id: 'p43', label: 'NFCORE_RAREDISEASE:RAREDISEASE:PREPARE_REFERENCES:GATK_SD'}, classes: 'PROCESS' },
+{ data: { id: 'p44', label: 'Channel.empty'}, classes: 'ORIGIN' },
+{ data: { id: 'p45', label: 'mix'}, classes: 'OPERATOR' },
+{ data: { id: 'p46', label: 'collect'}, classes: 'OPERATOR' },
+{ data: { id: 'p47', label: 'NFCORE_RAREDISEASE:RAREDISEASE:PREPARE_REFERENCES:GET_CHROM_SIZES'}, classes: 'PROCESS' },
+{ data: { id: 'p48', label: 'map'}, classes: 'OPERATOR' },
+{ data: { id: 'p49'}, classes: 'NODE' },
+{ data: { id: 'p50', label: 'Channel.empty'}, classes: 'ORIGIN' },
+{ data: { id: 'p51', label: 'mix'}, classes: 'OPERATOR' },
+{ data: { id: 'p52', label: 'collect'}, classes: 'OPERATOR' },
+{ data: { id: 'p53', label: 'NFCORE_RAREDISEASE:RAREDISEASE:PREPARE_REFERENCES:SAMTOOLS_EXTRACT_MT'}, classes: 'PROCESS' },
+{ data: { id: 'p54'}, classes: 'NODE' },
+{ data: { id: 'p55'}, classes: 'NODE' },
+{ data: { id: 'p56'}, classes: 'NODE' },
+{ data: { id: 'p57'}, classes: 'NODE' },
+{ data: { id: 'p58'}, classes: 'ORIGIN' },
+{ data: { id: 'p59', label: 'NFCORE_RAREDISEASE:RAREDISEASE:PREPARE_REFERENCES:TABIX_PT'}, classes: 'PROCESS' },
+{ data: { id: 'p60'}, classes: 'NODE' },
+{ data: { id: 'p61'}, classes: 'NODE' },
+{ data: { id: 'p62', label: 'NFCORE_RAREDISEASE:RAREDISEASE:PREPARE_REFERENCES:TABIX_PBT'}, classes: 'PROCESS' },
+{ data: { id: 'p63'}, classes: 'NODE' },
+{ data: { id: 'p64'}, classes: 'NODE' },
+{ data: { id: 'p65', label: 'NFCORE_RAREDISEASE:RAREDISEASE:PREPARE_REFERENCES:GATK_BILT'}, classes: 'PROCESS' },
+{ data: { id: 'p66', label: 'NFCORE_RAREDISEASE:RAREDISEASE:PREPARE_REFERENCES:GATK_ILT'}, classes: 'PROCESS' },
+{ data: { id: 'p67'}, classes: 'NODE' },
+{ data: { id: 'p68', label: 'collect'}, classes: 'OPERATOR' },
+{ data: { id: 'p69', label: 'map'}, classes: 'OPERATOR' },
+{ data: { id: 'p70'}, classes: 'NODE' },
+{ data: { id: 'p71', label: 'mix'}, classes: 'OPERATOR' },
+{ data: { id: 'p72', label: 'mix'}, classes: 'OPERATOR' },
+{ data: { id: 'p73', label: 'mix'}, classes: 'OPERATOR' },
+{ data: { id: 'p74', label: 'mix'}, classes: 'OPERATOR' },
+{ data: { id: 'p75', label: 'mix'}, classes: 'OPERATOR' },
+{ data: { id: 'p76', label: 'mix'}, classes: 'OPERATOR' },
+{ data: { id: 'p77', label: 'mix'}, classes: 'OPERATOR' },
+{ data: { id: 'p78', label: 'Channel.empty'}, classes: 'ORIGIN' },
+{ data: { id: 'p79', label: 'mix'}, classes: 'OPERATOR' },
+{ data: { id: 'p80', label: 'collect'}, classes: 'OPERATOR' },
+{ data: { id: 'p81'}, classes: 'NODE' },
+{ data: { id: 'p82', label: 'collect'}, classes: 'OPERATOR' },
+{ data: { id: 'p83'}, classes: 'NODE' },
+{ data: { id: 'p84', label: 'collect'}, classes: 'OPERATOR' },
+{ data: { id: 'p85'}, classes: 'NODE' },
+{ data: { id: 'p86', label: 'collect'}, classes: 'OPERATOR' },
+{ data: { id: 'p87', label: 'Channel.empty'}, classes: 'ORIGIN' },
+{ data: { id: 'p88', label: 'mix'}, classes: 'OPERATOR' },
+{ data: { id: 'p89', label: 'collect'}, classes: 'OPERATOR' },
+{ data: { id: 'p90'}, classes: 'NODE' },
+{ data: { id: 'p91', label: 'map'}, classes: 'OPERATOR' },
+{ data: { id: 'p92', label: 'collect'}, classes: 'OPERATOR' },
+{ data: { id: 'p93'}, classes: 'NODE' },
+{ data: { id: 'p94', label: 'Channel.fromPath'}, classes: 'ORIGIN' },
+{ data: { id: 'p95', label: 'map'}, classes: 'OPERATOR' },
+{ data: { id: 'p96', label: 'collect'}, classes: 'OPERATOR' },
+{ data: { id: 'p97'}, classes: 'NODE' },
+{ data: { id: 'p98', label: 'Channel.fromPath'}, classes: 'ORIGIN' },
+{ data: { id: 'p99', label: 'map'}, classes: 'OPERATOR' },
+{ data: { id: 'p100', label: 'collect'}, classes: 'OPERATOR' },
+{ data: { id: 'p101', label: 'mix'}, classes: 'OPERATOR' },
+{ data: { id: 'p102', label: 'Channel.empty'}, classes: 'ORIGIN' },
+{ data: { id: 'p103', label: 'NFCORE_RAREDISEASE:RAREDISEASE:SCATTER_GENOME:BUILD_BED'}, classes: 'PROCESS' },
+{ data: { id: 'p104', label: 'NFCORE_RAREDISEASE:RAREDISEASE:SCATTER_GENOME:GATK4_SPLITINTERVALS'}, classes: 'PROCESS' },
+{ data: { id: 'p105', label: 'mix'}, classes: 'OPERATOR' },
+{ data: { id: 'p106', label: 'mix'}, classes: 'OPERATOR' },
+{ data: { id: 'p107'}, classes: 'NODE' },
+{ data: { id: 'p108', label: 'collect'}, classes: 'OPERATOR' },
+{ data: { id: 'p109'}, classes: 'NODE' },
+{ data: { id: 'p110', label: 'map'}, classes: 'OPERATOR' },
+{ data: { id: 'p111', label: 'flatten'}, classes: 'OPERATOR' },
+{ data: { id: 'p112', label: 'collate'}, classes: 'OPERATOR' },
+{ data: { id: 'p113'}, classes: 'NODE' },
+{ data: { id: 'p114', label: 'Channel.empty'}, classes: 'ORIGIN' },
+{ data: { id: 'p115', label: 'Channel.empty'}, classes: 'ORIGIN' },
+{ data: { id: 'p116'}, classes: 'NODE' },
+{ data: { id: 'p117', label: 'Channel.empty'}, classes: 'ORIGIN' },
+{ data: { id: 'p118'}, classes: 'NODE' },
+{ data: { id: 'p119', label: 'Channel.empty'}, classes: 'ORIGIN' },
+{ data: { id: 'p120', label: 'Channel.empty'}, classes: 'ORIGIN' },
+{ data: { id: 'p121'}, classes: 'NODE' },
+{ data: { id: 'p122', label: 'Channel.empty'}, classes: 'ORIGIN' },
+{ data: { id: 'p123', label: 'Channel.empty'}, classes: 'ORIGIN' },
+{ data: { id: 'p124'}, classes: 'ORIGIN' },
+{ data: { id: 'p125', label: 'NFCORE_RAREDISEASE:RAREDISEASE:ALIGN:ALIGN_BWA_BWAMEM2:BWAMEM2_MEM'}, classes: 'PROCESS' },
+{ data: { id: 'p126', label: 'first'}, classes: 'OPERATOR' },
+{ data: { id: 'p127', label: 'mix'}, classes: 'OPERATOR' },
+{ data: { id: 'p128', label: 'NFCORE_RAREDISEASE:RAREDISEASE:ALIGN:ALIGN_BWA_BWAMEM2:SAMTOOLS_INDEX_ALIGN'}, classes: 'PROCESS' },
+{ data: { id: 'p129'}, classes: 'NODE' },
+{ data: { id: 'p130'}, classes: 'NODE' },
+{ data: { id: 'p131', label: 'first'}, classes: 'OPERATOR' },
+{ data: { id: 'p132', label: 'mix'}, classes: 'OPERATOR' },
+{ data: { id: 'p133', label: 'first'}, classes: 'OPERATOR' },
+{ data: { id: 'p134', label: 'mix'}, classes: 'OPERATOR' },
+{ data: { id: 'p135', label: 'mix'}, classes: 'OPERATOR' },
+{ data: { id: 'p136', label: 'Channel.empty'}, classes: 'ORIGIN' },
+{ data: { id: 'p137', label: 'mix'}, classes: 'OPERATOR' },
+{ data: { id: 'p138', label: 'Channel.empty'}, classes: 'ORIGIN' },
+{ data: { id: 'p139', label: 'mix'}, classes: 'OPERATOR' },
+{ data: { id: 'p140', label: 'join'}, classes: 'OPERATOR' },
+{ data: { id: 'p141'}, classes: 'NODE' },
+{ data: { id: 'p142', label: 'mix'}, classes: 'OPERATOR' },
+{ data: { id: 'p143'}, classes: 'NODE' },
+],
+edges: [
+{ data: { source: 'p0', target: 'p101', label: 'ch_versions' } },
+{ data: { source: 'p1', target: 'p2', label: 'ch_input' } },
+{ data: { source: 'p3', target: 'p4'} },
+{ data: { source: 'p4', target: 'p5'} },
+{ data: { source: 'p4', target: 'p7', label: 'ch_original_input' } },
+{ data: { source: 'p5', target: 'p6'} },
+{ data: { source: 'p6', target: 'p7'} },
+{ data: { source: 'p7', target: 'p8'} },
+{ data: { source: 'p8', target: 'p9'} },
+{ data: { source: 'p9', target: 'p12', label: 'ch_input_counts' } },
+{ data: { source: 'p9', target: 'p10'} },
+{ data: { source: 'p10', target: 'p11'} },
+{ data: { source: 'p11', target: 'p12'} },
+{ data: { source: 'p12', target: 'p13'} },
+{ data: { source: 'p13', target: 'p14', label: 'ch_reads_input' } },
+{ data: { source: 'p14', target: 'p15', label: 'ch_samples' } },
+{ data: { source: 'p15', target: 'p16'} },
+{ data: { source: 'p16', target: 'p17', label: 'ch_pedfile' } },
+{ data: { source: 'p14', target: 'p18', label: 'ch_samples' } },
+{ data: { source: 'p18', target: 'p19'} },
+{ data: { source: 'p19', target: 'p20', label: 'ch_case_info' } },
+{ data: { source: 'p21', target: 'p22'} },
+{ data: { source: 'p22', target: 'p23'} },
+{ data: { source: 'p23', target: 'p36', label: 'ch_genome_fasta' } },
+{ data: { source: 'p24', target: 'p25'} },
+{ data: { source: 'p25', target: 'p26'} },
+{ data: { source: 'p26', target: 'p45', label: 'ch_genome_fai' } },
+{ data: { source: 'p27', target: 'p71', label: 'ch_versions' } },
+{ data: { source: 'p28', target: 'p29', label: 'ch_tbi' } },
+{ data: { source: 'p30', target: 'p31', label: 'ch_bgzip_tbi' } },
+{ data: { source: 'p32', target: 'p33', label: 'ch_bwa' } },
+{ data: { source: 'p34', target: 'p35', label: 'ch_sentieonbwa' } },
+{ data: { source: 'p36', target: 'p79', label: 'ch_bwa' } },
+{ data: { source: 'p36', target: 'p71'} },
+{ data: { source: 'p23', target: 'p37', label: 'ch_genome_fasta' } },
+{ data: { source: 'p37', target: 'p82'} },
+{ data: { source: 'p37', target: 'p72'} },
+{ data: { source: 'p23', target: 'p38', label: 'ch_genome_fasta' } },
+{ data: { source: 'p38', target: 'p79', label: 'ch_sentieonbwa' } },
+{ data: { source: 'p38', target: 'p73'} },
+{ data: { source: 'p23', target: 'p40', label: 'ch_genome_fasta' } },
+{ data: { source: 'p39', target: 'p40'} },
+{ data: { source: 'p40', target: 'p42'} },
+{ data: { source: 'p40', target: 'p45'} },
+{ data: { source: 'p40', target: 'p41'} },
+{ data: { source: 'p40', target: 'p74'} },
+{ data: { source: 'p23', target: 'p43', label: 'ch_genome_fasta' } },
+{ data: { source: 'p43', target: 'p65'} },
+{ data: { source: 'p43', target: 'p75'} },
+{ data: { source: 'p44', target: 'p45'} },
+{ data: { source: 'p45', target: 'p46'} },
+{ data: { source: 'p46', target: 'p47', label: 'ch_fai' } },
+{ data: { source: 'p47', target: 'p84'} },
+{ data: { source: 'p47', target: 'p76'} },
+{ data: { source: 'p23', target: 'p48', label: 'ch_genome_fasta' } },
+{ data: { source: 'p48', target: 'p49', label: 'ch_rtgformat_in' } },
+{ data: { source: 'p50', target: 'p51'} },
+{ data: { source: 'p40', target: 'p51'} },
+{ data: { source: 'p26', target: 'p51', label: 'ch_genome_fai' } },
+{ data: { source: 'p51', target: 'p52'} },
+{ data: { source: 'p52', target: 'p53', label: 'ch_genome_fai' } },
+{ data: { source: 'p23', target: 'p53', label: 'ch_genome_fasta' } },
+{ data: { source: 'p53', target: 'p57'} },
+{ data: { source: 'p53', target: 'p56'} },
+{ data: { source: 'p53', target: 'p55'} },
+{ data: { source: 'p53', target: 'p54'} },
+{ data: { source: 'p58', target: 'p59', label: 'ch_target_bed' } },
+{ data: { source: 'p59', target: 'p88', label: 'ch_tbi' } },
+{ data: { source: 'p59', target: 'p61'} },
+{ data: { source: 'p59', target: 'p60'} },
+{ data: { source: 'p58', target: 'p62', label: 'ch_target_bed' } },
+{ data: { source: 'p62', target: 'p88', label: 'ch_bgzip_tbi' } },
+{ data: { source: 'p62', target: 'p64'} },
+{ data: { source: 'p62', target: 'p63'} },
+{ data: { source: 'p58', target: 'p65', label: 'ch_target_bed' } },
+{ data: { source: 'p65', target: 'p66'} },
+{ data: { source: 'p65', target: 'p77'} },
+{ data: { source: 'p66', target: 'p68'} },
+{ data: { source: 'p66', target: 'p67'} },
+{ data: { source: 'p68', target: 'p69'} },
+{ data: { source: 'p69', target: 'p70', label: 'ch_bait_intervals_cat_in' } },
+{ data: { source: 'p71', target: 'p72', label: 'ch_versions' } },
+{ data: { source: 'p72', target: 'p73', label: 'ch_versions' } },
+{ data: { source: 'p73', target: 'p74', label: 'ch_versions' } },
+{ data: { source: 'p74', target: 'p75', label: 'ch_versions' } },
+{ data: { source: 'p75', target: 'p76', label: 'ch_versions' } },
+{ data: { source: 'p76', target: 'p77', label: 'ch_versions' } },
+{ data: { source: 'p77', target: 'p101', label: 'versions' } },
+{ data: { source: 'p78', target: 'p79'} },
+{ data: { source: 'p79', target: 'p80'} },
+{ data: { source: 'p80', target: 'p81', label: 'genome_bwa_index' } },
+{ data: { source: 'p82', target: 'p83', label: 'genome_bwamem2_index' } },
+{ data: { source: 'p84', target: 'p85', label: 'ch_genome_chrsizes' } },
+{ data: { source: 'p43', target: 'p86'} },
+{ data: { source: 'p86', target: 'p104', label: 'ch_genome_dictionary' } },
+{ data: { source: 'p87', target: 'p88'} },
+{ data: { source: 'p88', target: 'p89'} },
+{ data: { source: 'p89', target: 'p90', label: 'ch_target_bed' } },
+{ data: { source: 'p65', target: 'p91'} },
+{ data: { source: 'p91', target: 'p92'} },
+{ data: { source: 'p92', target: 'p93', label: 'target_intervals' } },
+{ data: { source: 'p94', target: 'p95'} },
+{ data: { source: 'p95', target: 'p96'} },
+{ data: { source: 'p96', target: 'p97', label: 'ch_bwa_index' } },
+{ data: { source: 'p98', target: 'p99'} },
+{ data: { source: 'p99', target: 'p100'} },
+{ data: { source: 'p100', target: 'p125', label: 'ch_bwamem2_index' } },
+{ data: { source: 'p101', target: 'p142', label: 'ch_versions' } },
+{ data: { source: 'p102', target: 'p105', label: 'ch_versions' } },
+{ data: { source: 'p52', target: 'p103', label: 'ch_genome_fai' } },
+{ data: { source: 'p103', target: 'p104'} },
+{ data: { source: 'p103', target: 'p105'} },
+{ data: { source: 'p23', target: 'p104', label: 'ch_genome_fasta' } },
+{ data: { source: 'p52', target: 'p104', label: 'ch_genome_fai' } },
+{ data: { source: 'p104', target: 'p110'} },
+{ data: { source: 'p104', target: 'p106'} },
+{ data: { source: 'p105', target: 'p106', label: 'ch_versions' } },
+{ data: { source: 'p106', target: 'p107', label: 'versions' } },
+{ data: { source: 'p103', target: 'p108'} },
+{ data: { source: 'p108', target: 'p109', label: 'bed' } },
+{ data: { source: 'p110', target: 'p111'} },
+{ data: { source: 'p111', target: 'p112'} },
+{ data: { source: 'p112', target: 'p113', label: 'ch_scatter_split_intervals' } },
+{ data: { source: 'p114', target: 'p135', label: 'ch_versions' } },
+{ data: { source: 'p115', target: 'p116', label: 'ch_fastp_json' } },
+{ data: { source: 'p117', target: 'p118', label: 'ch_bwamem2_bam' } },
+{ data: { source: 'p119', target: 'p137', label: 'ch_sentieon_bam' } },
+{ data: { source: 'p120', target: 'p121', label: 'ch_bwamem2_bai' } },
+{ data: { source: 'p122', target: 'p139', label: 'ch_sentieon_bai' } },
+{ data: { source: 'p123', target: 'p127', label: 'ch_versions' } },
+{ data: { source: 'p13', target: 'p125', label: 'ch_reads_input' } },
+{ data: { source: 'p124', target: 'p125', label: 'sort_bam' } },
+{ data: { source: 'p125', target: 'p128', label: 'ch_bwamem2_bam' } },
+{ data: { source: 'p125', target: 'p126'} },
+{ data: { source: 'p126', target: 'p127'} },
+{ data: { source: 'p127', target: 'p132', label: 'ch_versions' } },
+{ data: { source: 'p128', target: 'p139', label: 'ch_bwamem2_bai' } },
+{ data: { source: 'p128', target: 'p130'} },
+{ data: { source: 'p128', target: 'p129'} },
+{ data: { source: 'p128', target: 'p133'} },
+{ data: { source: 'p125', target: 'p131'} },
+{ data: { source: 'p131', target: 'p132'} },
+{ data: { source: 'p132', target: 'p134', label: 'ch_versions' } },
+{ data: { source: 'p133', target: 'p134'} },
+{ data: { source: 'p134', target: 'p135', label: 'versions' } },
+{ data: { source: 'p135', target: 'p142', label: 'versions' } },
+{ data: { source: 'p136', target: 'p137'} },
+{ data: { source: 'p125', target: 'p137', label: 'ch_bwamem2_bam' } },
+{ data: { source: 'p137', target: 'p140', label: 'genome_marked_bam' } },
+{ data: { source: 'p138', target: 'p139'} },
+{ data: { source: 'p139', target: 'p140', label: 'genome_marked_bai' } },
+{ data: { source: 'p140', target: 'p141', label: 'genome_bam_bai' } },
+{ data: { source: 'p142', target: 'p143', label: 'ch_versions' } },
+],
+},
+
+                });
+
+            });
+        </script>
+    </head>
+
+    <body>
+        <h1>Nextflow Cytoscape.js with Dagre</h1>
+        <div id="cy"></div>
+    </body>
+
+</html>
