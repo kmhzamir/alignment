@@ -168,24 +168,6 @@
                     "fa_icon": "fas fa-ban",
                     "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`."
                 },
-                "intervals_wgs": {
-                    "type": "string",
-                    "exists": true,
-                    "format": "path",
-                    "fa_icon": "fas fa-file",
-                    "pattern": "^\\S+\\.intervals?(_list)?$",
-                    "description": "Path to the interval list of the genome (autosomes, sex chromosomes, and mitochondria).",
-                    "help_text": "Path to the interval list of the genome. This is used to calculate genome-wide coverage statistics."
-                },
-                "intervals_y": {
-                    "type": "string",
-                    "exists": true,
-                    "format": "path",
-                    "fa_icon": "fas fa-file",
-                    "pattern": "^\\S+\\.intervals?(_list)?$",
-                    "description": "Path to the interval list of the Y chromosome.",
-                    "help_text": "Path to the interval list of the Y chromosome. This is used to calculate coverage statistics for the Y chromosome."
-                },
                 "known_dbsnp": {
                     "type": "string",
                     "exists": true,
@@ -423,7 +405,7 @@
                     "description": "Path to the file containing HGNC_IDs of interest on separate lines."
                 }
             },
-            "required": ["fasta", "intervals_wgs", "intervals_y"]
+            "required": ["fasta"]
         },
         "analysis_options": {
             "title": "Analysis options",
