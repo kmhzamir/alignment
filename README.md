@@ -1,6 +1,6 @@
 <h1>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/images/nf-core-raredisease_logo_dark.png">
+    <source media="(prefers-color-scheme: dark)" srcset="https://www.reimagene.com/wp-content/uploads/2022/06/primary-logo.png">
     <img alt="nf-core/raredisease" src="https://www.reimagene.com/wp-content/uploads/2022/06/primary-logo.png">
   </picture>
 </h1>
