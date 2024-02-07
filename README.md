@@ -15,10 +15,6 @@
 
 ## Pipeline summary
 
-<p align="center">
-    <img title="nf-core/raredisease workflow" src="docs/images/raredisease_metromap_light.png">
-</p>
-
 **1. Alignment:**
 
 - [Bwa-mem2](https://github.com/bwa-mem2/bwa-mem2)
